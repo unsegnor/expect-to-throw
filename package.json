@@ -1,7 +1,7 @@
 {
-  "name": "new-app",
+  "name": "expect-to-throw",
   "version": "1.0.0",
-  "description": "New application schema",
+  "description": "Method to expect that an async function throws",
   "main": "index.js",
   "dependencies": {},
   "devDependencies": {
@@ -30,8 +30,8 @@
     "url": "git+https://github.com/unsegnor/new-app.git"
   },
   "keywords": [
-    "New",
-    "app",
+    "expect",
+    "throw",
     "test",
     "BDD",
     "gherkins",
