@@ -27,7 +27,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/unsegnor/new-app.git"
+    "url": "git+https://github.com/unsegnor/expect-to-throw.git"
   },
   "keywords": [
     "expect",
@@ -42,7 +42,7 @@
   "author": "Víctor Calatayud Asensio",
   "license": "GPL-3.0-or-later",
   "bugs": {
-    "url": "https://github.com/unsegnor/new-app/issues"
+    "url": "https://github.com/unsegnor/expect-to-throw/issues"
   },
-  "homepage": "https://github.com/unsegnor/new-app#readme"
+  "homepage": "https://github.com/unsegnor/expect-to-throw#readme"
 }
