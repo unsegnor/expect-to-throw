@@ -2,54 +2,134 @@ const {expect} = require('chai')
 const expectToThrow = require('./ExpectToThrow')
 
 describe('ExpectToThrow', function(){
-    describe('when the function ends its execution successfully', function(){
-        let errorWasNotThrownError
+    let errorWasNotThrownError
 
-        beforeEach(function(){
-            errorWasNotThrownError = new Error('The function executed successfully')
-        })
-
-        async function success(){}
-
-        it('must throw', async function(){
-            try{
-                await expectToThrow(async function(){
-                    await success()
-                })
-                throw errorWasNotThrownError
-            }catch(exception){
-                if(exception === errorWasNotThrownError) expect.fail('We should have thrown an error')
-            }
-        })
-
-        it('must throw an error telling that an exception was expected', async function(){
-            try{
-                await expectToThrow(async function(){
-                    await success()
-                })
-                throw errorWasNotThrownError
-            }catch(exception){
-                if(exception === errorWasNotThrownError) expect.fail('We should have thrown an error')
-                expect(exception.message).to.equal('An exception was expected to be thrown')
-            }
-        })
+    beforeEach(function(){
+        errorWasNotThrownError = new Error('The function executed successfully')
     })
 
-    describe('when the function throws', function(){
-        async function throwingFunction(){
-            throw new Error()
-        }
+    async function success(){}
+    async function throwingFunction(){
+        throw new Error()
+    }
 
-        it('must not throw', async function(){
-            try{
+    describe('when called only with a function', function(){
+        describe('when the function ends its execution successfully', function(){
+            it('must throw', async function(){
+                try{
+                    await expectToThrow(async function(){
+                        await success()
+                    })
+                    throw errorWasNotThrownError
+                }catch(exception){
+                    if(exception === errorWasNotThrownError) expect.fail('We should have thrown an error')
+                }
+            })
+    
+            it('must throw an error telling that an exception was expected', async function(){
+                try{
+                    await expectToThrow(async function(){
+                        await success()
+                    })
+                    throw errorWasNotThrownError
+                }catch(exception){
+                    if(exception === errorWasNotThrownError) expect.fail('We should have thrown an error')
+                    expect(exception.message).to.equal('An exception was expected to be thrown')
+                }
+            })
+        })
+    
+        describe('when the function throws', function(){
+            it('must not throw', async function(){
                 await expectToThrow(async function(){
                     await throwingFunction()
                 })
-            }catch(exception){
-                if(exception.message === 'An exception was expected to be thrown'){
-                    expect.fail('We should not have thrown an exception')
+            })
+        })
+    })
+
+    describe('when called with a function and an expected message', function(){
+        let expectedErrorMessage
+
+        beforeEach(function(){
+            expectedErrorMessage = 'expected error message'
+        })
+
+        describe('when the function ends its execution successfully', function(){
+            beforeEach(function(){
+                errorWasNotThrownError = new Error('The function executed successfully')
+            })
+    
+            it('must throw', async function(){
+                try{
+                    await expectToThrow(async function(){
+                        await success()
+                    }, expectedErrorMessage)
+                    throw errorWasNotThrownError
+                }catch(exception){
+                    if(exception === errorWasNotThrownError) expect.fail('We should have thrown an error')
                 }
+            })
+    
+            it('must throw an error indicating the expected error message', async function(){
+                try{
+                    await expectToThrow(async function(){
+                        await success()
+                    }, expectedErrorMessage)
+                    throw errorWasNotThrownError
+                }catch(exception){
+                    if(exception === errorWasNotThrownError) expect.fail('We should have thrown an error')
+                    expect(exception.message).to.equal('An exception was expected to be thrown containing: ' + expectedErrorMessage)
+                }
+            })
+        })
+    
+        describe('when the function throws an error with the expected error message', function(){
+            async function throwingFunctionWithExpectedErrorMessage(){
+                throw new Error(expectedErrorMessage)
             }
+
+            it('must not throw', async function(){
+                await expectToThrow(async function(){
+                    await throwingFunctionWithExpectedErrorMessage()
+                }, expectedErrorMessage)
+            })
+        })
+
+        describe('when the function throws an error containing the expected error message', function(){
+            async function throwingFunctionWithErrorMesageIncludingExpected(){
+                throw new Error("other things" + expectedErrorMessage + " other things")
+            }
+
+            it('must not throw', async function(){
+                await expectToThrow(async function(){
+                    await throwingFunctionWithErrorMesageIncludingExpected()
+                }, expectedErrorMessage)
+            })
+        })
+
+        describe('when the function throws an error not containing the expected error message', function(){
+            var otherErrorMessage
+
+            beforeEach(function(){
+              otherErrorMessage = 'a different error message'  
+            })
+
+            async function throwingFunctionWithUnexpectedErrorMessage(){
+                throw new Error(otherErrorMessage)
+            }
+
+            it('must throw indicating the expected and current error messages', async function(){
+                try{
+                    await expectToThrow(async function(){
+                        await throwingFunctionWithUnexpectedErrorMessage()
+                    }, expectedErrorMessage)
+                    throw errorWasNotThrownError
+                }catch(exception){
+                    if(exception === errorWasNotThrownError) expect.fail('We should have thrown an error')
+                    expect(exception.message).to.equal('An exception was expected to be thrown containing: ' + expectedErrorMessage + ' but the error message was: ' + otherErrorMessage)
+                }
+            })
         })
     })
 })
