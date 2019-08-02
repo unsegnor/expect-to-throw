@@ -62,9 +62,9 @@ describe('ExpectToThrow', function(){
     
             it('must throw', async function(){
                 try{
-                    await expectToThrow(async function(){
+                    await expectToThrow(expectedErrorMessage, async function(){
                         await success()
-                    }, expectedErrorMessage)
+                    })
                     throw errorWasNotThrownError
                 }catch(exception){
                     if(exception === errorWasNotThrownError) expect.fail('We should have thrown an error')
@@ -73,9 +73,9 @@ describe('ExpectToThrow', function(){
     
             it('must throw an error indicating the expected error message', async function(){
                 try{
-                    await expectToThrow(async function(){
+                    await expectToThrow(expectedErrorMessage, async function(){
                         await success()
-                    }, expectedErrorMessage)
+                    })
                     throw errorWasNotThrownError
                 }catch(exception){
                     if(exception === errorWasNotThrownError) expect.fail('We should have thrown an error')
@@ -90,9 +90,9 @@ describe('ExpectToThrow', function(){
             }
 
             it('must not throw', async function(){
-                await expectToThrow(async function(){
+                await expectToThrow(expectedErrorMessage, async function(){
                     await throwingFunctionWithExpectedErrorMessage()
-                }, expectedErrorMessage)
+                })
             })
         })
 
@@ -102,9 +102,9 @@ describe('ExpectToThrow', function(){
             }
 
             it('must not throw', async function(){
-                await expectToThrow(async function(){
+                await expectToThrow(expectedErrorMessage, async function(){
                     await throwingFunctionWithErrorMesageIncludingExpected()
-                }, expectedErrorMessage)
+                })
             })
         })
 
@@ -121,9 +121,9 @@ describe('ExpectToThrow', function(){
 
             it('must throw indicating the expected and current error messages', async function(){
                 try{
-                    await expectToThrow(async function(){
+                    await expectToThrow(expectedErrorMessage, async function(){
                         await throwingFunctionWithUnexpectedErrorMessage()
-                    }, expectedErrorMessage)
+                    })
                     throw errorWasNotThrownError
                 }catch(exception){
                     if(exception === errorWasNotThrownError) expect.fail('We should have thrown an error')

@@ -1,4 +1,12 @@
-module.exports = async function(fn, expectedErrorMessage){
+module.exports = async function(){
+    var fn, expectedErrorMessage
+    if(arguments.length === 1){
+        fn = arguments[0]
+    }else{
+        expectedErrorMessage = arguments[0]
+        fn = arguments[1]
+    }
+
     var functionWasSuccessfullError = new Error()
     try{
         await fn()
