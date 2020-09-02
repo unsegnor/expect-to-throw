@@ -8,7 +8,7 @@ const expectToThrow = require('expect-to-throw')
 
 describe('some method', function(){
     it('must throw', async function(){
-        expectToThrow(async function(){
+        await expectToThrow(async function(){
             await someMethod()
         })
     })
