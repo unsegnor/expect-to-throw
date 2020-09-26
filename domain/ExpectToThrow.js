@@ -13,6 +13,6 @@ module.exports = async function(){
         throw functionWasSuccessfullError
     }catch(exception){
         if(exception === functionWasSuccessfullError) throw new Error('An exception was expected to be thrown' + (expectedErrorMessage?' containing: ' + expectedErrorMessage:''))
-        if(expectedErrorMessage && !exception.message.includes(expectedErrorMessage)) throw new Error('An exception was expected to be thrown containing: '+expectedErrorMessage +' but the error message was: '+exception.message)
+        if(expectedErrorMessage && !exception.message.toLowerCase().includes(expectedErrorMessage.toLowerCase())) throw new Error('An exception was expected to be thrown containing: '+expectedErrorMessage +' but the error message was: '+exception.message)
     }
 }

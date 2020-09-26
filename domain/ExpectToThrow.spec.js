@@ -101,9 +101,19 @@ describe('ExpectToThrow', function(){
                 throw new Error("other things" + expectedErrorMessage + " other things")
             }
 
+            async function throwingFunctionWithErrorMesageIncludingUpperCases(){
+                throw new Error("other things" + "ERRor MessAge" + " other things")
+            }
+
             it('must not throw', async function(){
                 await expectToThrow(expectedErrorMessage, async function(){
                     await throwingFunctionWithErrorMesageIncludingExpected()
+                })
+            })
+
+            it('must ignore case', async function(){
+                await expectToThrow("errOR meSSage", async function(){
+                    await throwingFunctionWithErrorMesageIncludingUpperCases()
                 })
             })
         })
