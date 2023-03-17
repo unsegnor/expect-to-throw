@@ -12,7 +12,7 @@
     "chai": "^4.2.0",
     "cucumber": "^5.0.2",
     "mocha": "^8.0.0",
-    "release-it": "^13.0.0"
+    "release-it": "^15.0.0"
   },
   "scripts": {
     "release": "release-it",
