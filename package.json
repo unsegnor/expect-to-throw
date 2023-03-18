@@ -1,6 +1,6 @@
 {
   "name": "expect-to-throw",
-  "version": "3.0.29",
+  "version": "3.0.30",
   "description": "Method to expect that an async function throws",
   "main": "index.js",
   "dependencies": {},
