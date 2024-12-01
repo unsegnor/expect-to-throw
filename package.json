@@ -5,9 +5,9 @@
   "main": "index.js",
   "dependencies": {},
   "devDependencies": {
-    "@stryker-mutator/core": "^2.0.2",
+    "@stryker-mutator/core": "^8.0.0",
     "@stryker-mutator/javascript-mutator": "^2.0.2",
-    "@stryker-mutator/mocha-runner": "^2.0.2",
+    "@stryker-mutator/mocha-runner": "^8.0.0",
     "chai": "^4.2.0",
     "cucumber": "^6.0.0",
     "mocha": "^10.0.0"
