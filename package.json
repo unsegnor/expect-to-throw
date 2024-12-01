@@ -6,7 +6,7 @@
   "dependencies": {},
   "devDependencies": {
     "@stryker-mutator/core": "^8.0.0",
-    "@stryker-mutator/javascript-mutator": "^2.0.2",
+    "@stryker-mutator/javascript-mutator": "^4.0.0",
     "@stryker-mutator/mocha-runner": "^8.0.0",
     "chai": "^4.2.0",
     "cucumber": "^6.0.0",
